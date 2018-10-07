@@ -7,13 +7,6 @@ WeatherReport = collections.namedtuple('WeatherReport',
 
 
 def main():
-    # t = 1, 7, 'cat', [1,2,3]
-    # print(t)
-    # print(t[1])
-    #
-    # n1, n2, s, l = t
-    # print(n1, n2, s, l)
-    # return
 
     print_the_header()
 
@@ -42,17 +35,12 @@ def print_the_header():
 def get_html_from_web(zipcode):
     url = 'http://www.wunderground.com/weather-forecast/{}'.format(zipcode)
     response = requests.get(url)
-    # print(response.status_code)
-    # print(response.text[0:250])
+    
 
     return response.text
 
 
 def get_weather_from_html(html):
-    # cityCss = '.region-content-header h1'
-    # weatherScaleCss = '.wu-unit-temperature .wu-label'
-    # weatherTempCss = '.wu-unit-temperature .wu-value'
-    # weatherConditionCss = '.condition-icon'
 
     soup = bs4.BeautifulSoup(html, 'html.parser')
     loc = soup.find(class_='region-content-header').find('h1').get_text()
@@ -66,8 +54,6 @@ def get_weather_from_html(html):
     temp = cleanup_text(temp)
     scale = cleanup_text(scale)
 
-    # print(condition, temp, scale, loc)
-    # return condition, temp, scale, loc
     report = WeatherReport(cond=condition, temp=temp, scale=scale, loc=loc)
     return report
 
